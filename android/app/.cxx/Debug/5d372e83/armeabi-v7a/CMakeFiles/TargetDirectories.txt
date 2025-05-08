@@ -1,0 +1,2 @@
+D:/Desktop/software/Flutter/meals_app/android/app/.cxx/Debug/5d372e83/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Desktop/software/Flutter/meals_app/android/app/.cxx/Debug/5d372e83/armeabi-v7a/CMakeFiles/rebuild_cache.dir

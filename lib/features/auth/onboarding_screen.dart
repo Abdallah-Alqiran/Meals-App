@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/features/home/screen/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/utils/app_color.dart';
 
@@ -48,11 +49,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               height: 400.h,
               decoration: BoxDecoration(
                   color: AppColor.primaryColor.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(50.r)),
+                  borderRadius: BorderRadius.circular(50.r)
+              ),
               child: CarouselSlider(
                 carouselController: controller,
                 options: CarouselOptions(
-                    height: 400.0,
                     viewportFraction: 0.95,
                     onPageChanged: (index, reason) {
                       setState(() {
@@ -62,111 +63,115 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 items: List.generate(titles.length, (index) {
                   return Builder(
                     builder: (BuildContext context) {
-                      return Padding(
-                        padding: EdgeInsets.all(8.sp),
-                        child: Column(children: [
-                          Text(
-                            titles[index],
-                            style: TextStyle(
-                                color: AppColor.title,
-                                fontSize: 30.sp,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 20.h),
-                          Text(
-                            description[index],
-                            style: TextStyle(
-                                color: AppColor.title,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w400),
-                            textAlign: TextAlign.center,
-                          ),
-                          DotsIndicator(
-                            onTap: (index) {
-                              setState(() {
-                                controller.animateToPage(index);
-                              });
-                            },
-                            dotsCount: titles.length,
-                            position: currentPage,
-                            decorator: DotsDecorator(
-                                color: AppColor.dotCor,
-                                activeColor: AppColor.title,
-                                activeSize: Size(20.w, 10.h),
-                                size: Size(20.w, 10.h),
-                                activeShape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                            child: currentPage == 2
-                                ? InkWell(
-                                    onTap: () {
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomeScreen()));
-                                    },
-                                    child: CircleAvatar(
-                                      backgroundColor: AppColor.title,
-                                      radius: 26.sp,
-                                      child: Icon(
-                                        Icons.arrow_forward,
-                                        size: 26.sp,
-                                        color: AppColor.primaryColor,
-                                      ),
+                      return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                        Text(
+                          titles[index],
+                          style: TextStyle(
+                              color: AppColor.title,
+                              fontSize: 24.sp,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 10.h),
+                        Text(
+                          description[index],
+                          style: TextStyle(
+                              color: AppColor.title,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400),
+                          textAlign: TextAlign.center,
+                        ),
+                        DotsIndicator(
+                          onTap: (index) {
+                            setState(() {
+                              controller.animateToPage(index);
+                            });
+                          },
+                          dotsCount: titles.length,
+                          position: currentPage,
+                          decorator: DotsDecorator(
+                              color: AppColor.dotCor,
+                              activeColor: AppColor.title,
+                              activeSize: Size(20.w, 10.h),
+                              size: Size(20.w, 10.h),
+                              activeShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0))),
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                          child: currentPage == 2
+                              ? InkWell(
+                                  onTap: () async {
+                                    final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setBool('seen', true);
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()));
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: AppColor.title,
+                                    radius: 26.sp,
+                                    child: Icon(
+                                      Icons.arrow_forward,
+                                      size: 26.sp,
+                                      color: AppColor.primaryColor,
                                     ),
-                                  )
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                        InkWell(
-                                          onTap: () {
-                                            setState(() {});
-                                          },
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const HomeScreen()));
-                                            },
-                                            child: Text(
-                                              "Skip",
-                                              style: TextStyle(
-                                                  fontSize: 18.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: AppColor.title),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            controller.nextPage();
-                                            if (currentPage >= 3) {
-                                              currentPage = 0;
-                                            }
+                                  ),
+                                )
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {});
+                                        },
+                                        child: InkWell(
+                                          onTap: () async {
+                                            final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                            await prefs.setBool("seen", true);
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const HomeScreen()));
                                           },
                                           child: Text(
-                                            "Next",
+                                            "Skip",
                                             style: TextStyle(
                                                 fontSize: 18.sp,
                                                 fontWeight: FontWeight.w400,
                                                 color: AppColor.title),
                                           ),
-                                        )
-                                      ]),
-                          )
-                        ]),
-                      );
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          controller.nextPage();
+                                          if (currentPage >= 3) {
+                                            currentPage = 0;
+                                          }
+                                        },
+                                        child: Text(
+                                          "Next",
+                                          style: TextStyle(
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColor.title),
+                                        ),
+                                      )
+                                    ]),
+                        )
+                      ]);
                     },
                   );
                 }).toList(),

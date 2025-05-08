@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/features/auth/splash_screen.dart';
-import 'features/auth/onboarding_screen.dart';
+import 'package:meals_app/features/home/data/dp_helper/db_helper.dart';
+import 'package:meals_app/features/home/data/model/meal_model.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // DatabaseHelper dbHelper = DatabaseHelper.instance;
+  //
+  // try {
+  //   MealModel mealModel = MealModel(
+  //     imageUrl: 'https://img.taste.com.au/KCIGRWcj/taste/2022/07/koshari-egyptian-rice-lentils-and-pasta-180337-2.jpg',
+  //     name: 'Pizza',
+  //     rate: 4.5,
+  //     description: 'this is a perfect meal',
+  //     time: "2h",
+  //   );
+  //   await dbHelper.insert(mealModel);
+  //   await dbHelper.insert(mealModel);
+  //   await dbHelper.insert(mealModel);
+  // } catch (e) {
+  //   debugPrint("Database initialization failed: $e");
+  // }
+  //
+  // List<MealModel> meals = await dbHelper.getMeals();
+  // print("====$meals");
+
   runApp(const MyApp());
 }
 
