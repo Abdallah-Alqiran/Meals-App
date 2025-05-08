@@ -41,7 +41,9 @@ class _AddMealScreenState extends State<AddMealScreen> {
               icon: const Icon(Icons.arrow_back_ios))),
       body: SingleChildScrollView(
         child: SizedBox(
-            width: MediaQuery.sizeOf(context).width,
+            width: MediaQuery
+                .sizeOf(context)
+                .width,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.sp),
               child: Form(
@@ -53,32 +55,46 @@ class _AddMealScreenState extends State<AddMealScreen> {
                       height: 15.h,
                     ),
 
-                    customTextFormField(title: 'Meal Name', hintText: 'Enter your meal name', controller: nameController),
-                    customTextFormField(title: 'Image URL', hintText: 'Enter your image url', controller: imageUrlController, maxLines: 4),
-                    customTextFormField(title: 'Rate', hintText: 'Enter food rating', controller: rateController),
-                    customTextFormField(title: 'Time', hintText: 'preparing meal time...', controller: timeController),
-                    customTextFormField(title: 'Description', hintText: 'description...', controller: descriptionController, maxLines: 7),
+                    customTextFormField(title: 'Meal Name',
+                        hintText: 'Enter your meal name',
+                        controller: nameController),
+                    customTextFormField(title: 'Image URL',
+                        hintText: 'Enter your image url',
+                        controller: imageUrlController,
+                        maxLines: 4),
+                    customTextFormField(title: 'Rate',
+                        hintText: 'Enter food rating',
+                        controller: rateController),
+                    customTextFormField(title: 'Time',
+                        hintText: 'preparing meal time...',
+                        controller: timeController),
+                    customTextFormField(title: 'Description',
+                        hintText: 'description...',
+                        controller: descriptionController,
+                        maxLines: 7),
 
                     SizedBox(height: 16.h),
 
                     SizedBox(
-                      width: MediaQuery.sizeOf(context).width,
+                      width: MediaQuery
+                          .sizeOf(context)
+                          .width,
                       child: ElevatedButton(
                         onPressed: () {
                           if (key.currentState!.validate()) {
                             dbHelper
                                 .insert(MealModel(
-                                    imageUrl: imageUrlController.text,
-                                    name: nameController.text,
-                                    rate: double.parse(rateController.text),
-                                    description: descriptionController.text,
-                                    time: timeController.text))
+                                imageUrl: imageUrlController.text,
+                                name: nameController.text,
+                                rate: double.parse(rateController.text),
+                                description: descriptionController.text,
+                                time: timeController.text))
                                 .then((value) {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const HomeScreen()));
+                                      const HomeScreen()));
                             });
                           }
                         },
@@ -100,6 +116,18 @@ class _AddMealScreenState extends State<AddMealScreen> {
       ),
     );
   }
+
+  // to kill controllers when the screen dead
+  @override
+  void dispose() {
+    nameController.dispose();
+    imageUrlController.dispose();
+    descriptionController.dispose();
+    rateController.dispose();
+    timeController.dispose();
+    super.dispose();
+  }
+
 }
 
 Widget customTextFormField(

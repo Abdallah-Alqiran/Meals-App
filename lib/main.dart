@@ -8,26 +8,6 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  // DatabaseHelper dbHelper = DatabaseHelper.instance;
-  //
-  // try {
-  //   MealModel mealModel = MealModel(
-  //     imageUrl: 'https://img.taste.com.au/KCIGRWcj/taste/2022/07/koshari-egyptian-rice-lentils-and-pasta-180337-2.jpg',
-  //     name: 'Pizza',
-  //     rate: 4.5,
-  //     description: 'this is a perfect meal',
-  //     time: "2h",
-  //   );
-  //   await dbHelper.insert(mealModel);
-  //   await dbHelper.insert(mealModel);
-  //   await dbHelper.insert(mealModel);
-  // } catch (e) {
-  //   debugPrint("Database initialization failed: $e");
-  // }
-  //
-  // List<MealModel> meals = await dbHelper.getMeals();
-  // print("====$meals");
-
   runApp(const MyApp());
 }
 
