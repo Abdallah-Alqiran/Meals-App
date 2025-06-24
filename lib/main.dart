@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/features/auth/splash_screen.dart';
-import 'package:meals_app/features/home/data/dp_helper/db_helper.dart';
-import 'package:meals_app/features/home/data/model/meal_model.dart';
+import 'package:meals_app/routes/app_routes.dart';
+import 'package:meals_app/routes/router_generator.dart';
 
 void main() async {
 
@@ -25,6 +25,8 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: child,
+          initialRoute: AppRoutes.splashScreen,
+          onGenerateRoute: RouterGenerator.generateRoute,
         );
       },
       child: const SplashScreen(),

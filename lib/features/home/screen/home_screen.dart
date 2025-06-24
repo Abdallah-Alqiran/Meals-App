@@ -2,8 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/features/home/data/dp_helper/db_helper.dart';
-import 'package:meals_app/features/home/screen/add_meal_screen.dart';
-import 'package:meals_app/features/home/screen/meals_details_screen.dart';
+import 'package:meals_app/routes/app_routes.dart';
 
 import '../../../core/utils/app_color.dart';
 
@@ -98,14 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MealsDetailsScreen(
-                                            mealModel: snapshot.data![index],
-                                      )
-                                  )
-                              );
+                              Navigator.pushNamed(context, AppRoutes.mealsDetailsScreen, arguments: snapshot.data![index]);
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -125,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: CachedNetworkImage(
                                       imageUrl: snapshot.data![index].imageUrl,
                                       placeholder: (context, url) =>
-                                          CircularProgressIndicator(),
+                                          const CircularProgressIndicator(),
                                       errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
                                     ),
                                   ),
@@ -179,8 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
           color: AppColor.primaryColor,
         )),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddMealScreen()));
+          Navigator.pushNamed(context, AppRoutes.addMealScreen);
         },
         child: const Icon(
           Icons.add,

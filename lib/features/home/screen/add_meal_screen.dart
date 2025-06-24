@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/features/home/data/dp_helper/db_helper.dart';
 import 'package:meals_app/features/home/data/model/meal_model.dart';
-import 'package:meals_app/features/home/screen/home_screen.dart';
+import 'package:meals_app/routes/app_routes.dart';
 
 import '../../../core/utils/app_color.dart';
 
@@ -41,9 +40,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
               icon: const Icon(Icons.arrow_back_ios))),
       body: SingleChildScrollView(
         child: SizedBox(
-            width: MediaQuery
-                .sizeOf(context)
-                .width,
+            width: MediaQuery.sizeOf(context).width,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.sp),
               child: Form(
@@ -54,47 +51,44 @@ class _AddMealScreenState extends State<AddMealScreen> {
                     SizedBox(
                       height: 15.h,
                     ),
-
-                    customTextFormField(title: 'Meal Name',
+                    customTextFormField(
+                        title: 'Meal Name',
                         hintText: 'Enter your meal name',
                         controller: nameController),
-                    customTextFormField(title: 'Image URL',
+                    customTextFormField(
+                        title: 'Image URL',
                         hintText: 'Enter your image url',
                         controller: imageUrlController,
                         maxLines: 4),
-                    customTextFormField(title: 'Rate',
+                    customTextFormField(
+                        title: 'Rate',
                         hintText: 'Enter food rating',
                         controller: rateController),
-                    customTextFormField(title: 'Time',
+                    customTextFormField(
+                        title: 'Time',
                         hintText: 'preparing meal time...',
                         controller: timeController),
-                    customTextFormField(title: 'Description',
+                    customTextFormField(
+                        title: 'Description',
                         hintText: 'description...',
                         controller: descriptionController,
                         maxLines: 7),
-
                     SizedBox(height: 16.h),
-
                     SizedBox(
-                      width: MediaQuery
-                          .sizeOf(context)
-                          .width,
+                      width: MediaQuery.sizeOf(context).width,
                       child: ElevatedButton(
                         onPressed: () {
                           if (key.currentState!.validate()) {
                             dbHelper
                                 .insert(MealModel(
-                                imageUrl: imageUrlController.text,
-                                name: nameController.text,
-                                rate: double.parse(rateController.text),
-                                description: descriptionController.text,
-                                time: timeController.text))
+                                    imageUrl: imageUrlController.text,
+                                    name: nameController.text,
+                                    rate: double.parse(rateController.text),
+                                    description: descriptionController.text,
+                                    time: timeController.text))
                                 .then((value) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                      const HomeScreen()));
+                              Navigator.pushReplacementNamed(
+                                  context, AppRoutes.homeScreen);
                             });
                           }
                         },
@@ -127,11 +121,13 @@ class _AddMealScreenState extends State<AddMealScreen> {
     timeController.dispose();
     super.dispose();
   }
-
 }
 
 Widget customTextFormField(
-    {required String title, required String hintText, required TextEditingController controller, int maxLines = 1}) {
+    {required String title,
+    required String hintText,
+    required TextEditingController controller,
+    int maxLines = 1}) {
   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     SizedBox(
       height: 15.h,

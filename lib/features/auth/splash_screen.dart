@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:meals_app/features/auth/onboarding_screen.dart';
-import 'package:meals_app/features/home/screen/home_screen.dart';
+import 'package:meals_app/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,14 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final seen = prefs.getBool('seen');
 
+      if (!mounted) return;
+
       if (seen == true) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-          return const HomeScreen();
-        }));
+        Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
       } else {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-          return const OnBoardingScreen();
-        }));
+        Navigator.pushReplacementNamed(context, AppRoutes.onBoardingScreen);
       }
     });
 
