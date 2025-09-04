@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:meals_app/features/onboarding_services/onboarding_services.dart';
 import 'package:meals_app/routes/app_routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,15 +15,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final seen = prefs.getBool('seen');
+
+      bool isFirstTime = OnBoardingServices.isFirstTime();
 
       if (!mounted) return;
 
-      if (seen == true) {
-        Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+      if (isFirstTime == false) {
+        GoRouter.of(context).pushNamed(AppRoutes.homeScreen);
       } else {
-        Navigator.pushReplacementNamed(context, AppRoutes.onBoardingScreen);
+        GoRouter.of(context).pushNamed(AppRoutes.onBoardingScreen);
       }
     });
 

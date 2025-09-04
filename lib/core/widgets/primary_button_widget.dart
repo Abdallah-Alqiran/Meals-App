@@ -1,6 +1,7 @@
-import 'package:finance_app/core/styling/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../utils/app_color.dart';
 
 class PrimaryButtonWidget extends StatelessWidget {
   final String? buttonText;
@@ -28,9 +29,9 @@ class PrimaryButtonWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPress,
       style: ElevatedButton.styleFrom(
-        backgroundColor: buttonColor ?? AppColors.primaryColor,
+        backgroundColor: buttonColor ?? AppColor.primaryColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? 8.r),
+          borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
         ),
         fixedSize: Size(width ?? 331.w, height ?? 56.h),
       ),

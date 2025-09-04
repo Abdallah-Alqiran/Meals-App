@@ -1,8 +1,9 @@
-import 'package:finance_app/core/styling/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTextfield extends StatelessWidget {
+import '../utils/app_color.dart';
+
+class CustomTextField extends StatelessWidget {
   final String? hintText;
   final Widget? suffixIcon;
   final double? width;
@@ -10,7 +11,7 @@ class CustomTextfield extends StatelessWidget {
   final bool? isPassword;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
-  const CustomTextfield({
+  const CustomTextField({
     super.key,
     this.hintText,
     this.suffixIcon,
@@ -30,7 +31,7 @@ class CustomTextfield extends StatelessWidget {
         controller: controller,
         validator: validator,
         autofocus: false,
-        cursorColor: AppColors.primaryColor,
+        cursorColor: AppColor.primaryColor,
         obscureText: isPassword ?? false,
         decoration: InputDecoration(
           hintText: hintText ?? "",
@@ -46,7 +47,7 @@ class CustomTextfield extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(color: AppColors.primaryColor, width: 2.w),
+            borderSide: BorderSide(color: AppColor.primaryColor, width: 2.w),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
@@ -57,7 +58,7 @@ class CustomTextfield extends StatelessWidget {
             borderSide: BorderSide(color: Colors.red, width: 1.w),
           ),
           filled: true,
-          fillColor: Color(0xFFF7F8F9),
+          fillColor: const Color(0xFFF7F8F9),
           suffixIcon: suffixIcon,
         ),
       ),
