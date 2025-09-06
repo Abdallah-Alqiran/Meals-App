@@ -4,3 +4,6 @@ windows/** linguist-vendored
 linux/** linguist-vendored
 macos/** linguist-vendored
 web/** linguist-vendored
+
+*.dart linguist-detectable=true
+*.dart linguist-language=Dart
