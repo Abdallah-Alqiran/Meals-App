@@ -4,7 +4,7 @@ import 'package:meals_app/features/auth/onboarding/onboarding_screen.dart';
 import 'package:meals_app/features/auth/splash_screen.dart';
 import 'package:meals_app/features/home/data/model/meal_model.dart';
 import 'package:meals_app/features/home/screens/add_meal_screen.dart';
-import 'package:meals_app/features/home/screens/home_screen.dart';
+import 'package:meals_app/features/home/screens/home_screen/home_screen.dart';
 import 'package:meals_app/features/home/screens/meals_details_screen.dart';
 import 'package:meals_app/routes/app_routes.dart';
 
