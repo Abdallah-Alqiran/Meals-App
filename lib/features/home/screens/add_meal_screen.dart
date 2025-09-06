@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meals_app/core/widgets/primary_button_widget.dart';
 import 'package:meals_app/features/home/data/dp_helper/db_helper.dart';
 import 'package:meals_app/features/home/data/model/meal_model.dart';
@@ -96,8 +97,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                                 ),
                               )
                               .then((value) {
-                                Navigator.pushReplacementNamed(
-                                  context,
+                                GoRouter.of(context).pushReplacementNamed(
                                   AppRoutes.homeScreen,
                                 );
                               });

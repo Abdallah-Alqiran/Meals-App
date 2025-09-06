@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 15.h),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.sp),
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: CustomFoodWidget(dbHelper: dbHelper),
               ),
             ),
