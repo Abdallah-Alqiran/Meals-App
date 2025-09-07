@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meals_app/core/utils/app_color.dart';
+import 'package:meals_app/core/utils/app_text_styles.dart';
 import 'package:meals_app/core/widgets/primary_button_widget.dart';
 import 'package:meals_app/features/home/data/dp_helper/db_helper.dart';
 import 'package:meals_app/features/home/data/model/meal_model.dart';
+import 'package:meals_app/features/home/screens/add_meal_screen/widgets/custom_text_form_field.dart';
 import 'package:meals_app/routes/app_routes.dart';
-
-import '../../../core/utils/app_color.dart';
 
 class AddMealScreen extends StatefulWidget {
   const AddMealScreen({super.key});
@@ -26,14 +27,13 @@ class _AddMealScreenState extends State<AddMealScreen> {
 
   final GlobalKey<FormState> key = GlobalKey();
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Add Meal',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
-        ),
+        title: Text('Add Meal', style: AppTextStyles.black16Medium),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -53,28 +53,29 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 15.h),
-                  customTextFormField(
+                  CustomTextFormField(
                     title: 'Meal Name',
                     hintText: 'Enter your meal name',
                     controller: nameController,
                   ),
-                  customTextFormField(
+                  CustomTextFormField(
                     title: 'Image URL',
                     hintText: 'Enter your image url',
                     controller: imageUrlController,
                     maxLines: 4,
                   ),
-                  customTextFormField(
+                  CustomTextFormField(
                     title: 'Rate',
                     hintText: 'Enter food rating',
                     controller: rateController,
+                    keyboardType: TextInputType.number,
                   ),
-                  customTextFormField(
+                  CustomTextFormField(
                     title: 'Time',
                     hintText: 'preparing meal time...',
                     controller: timeController,
                   ),
-                  customTextFormField(
+                  CustomTextFormField(
                     title: 'Description',
                     hintText: 'description...',
                     controller: descriptionController,
@@ -87,7 +88,10 @@ class _AddMealScreenState extends State<AddMealScreen> {
                       buttonText: "Save",
                       onPress: () {
                         if (key.currentState!.validate()) {
-                          dbHelper.insert(
+                          isLoading = true;
+                          setState(() {});
+                          dbHelper
+                              .insert(
                                 MealModel(
                                   imageUrl: imageUrlController.text,
                                   name: nameController.text,
@@ -97,14 +101,25 @@ class _AddMealScreenState extends State<AddMealScreen> {
                                 ),
                               )
                               .then((value) {
-                                GoRouter.of(context).pushReplacementNamed(
-                                  AppRoutes.homeScreen,
-                                );
+                                isLoading = false;
+                                if (!context.mounted) return;
+                                GoRouter.of(
+                                  context,
+                                ).pushReplacementNamed(AppRoutes.homeScreen);
                               });
                         }
                       },
                     ),
                   ),
+                  SizedBox(height: 10.sp),
+                  isLoading == true
+                      ? const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColor.primaryColor,
+                        ),
+                      )
+                      : Container(),
+                  SizedBox(height: 64.sp),
                 ],
               ),
             ),
@@ -114,7 +129,6 @@ class _AddMealScreenState extends State<AddMealScreen> {
     );
   }
 
-  // to kill controllers when the screen dead
   @override
   void dispose() {
     nameController.dispose();
@@ -124,41 +138,4 @@ class _AddMealScreenState extends State<AddMealScreen> {
     timeController.dispose();
     super.dispose();
   }
-}
-
-Widget customTextFormField({
-  required String title,
-  required String hintText,
-  required TextEditingController controller,
-  int maxLines = 1,
-}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      SizedBox(height: 15.h),
-      Text(title),
-      SizedBox(height: 5.h),
-      TextFormField(
-        controller: controller,
-        maxLines: maxLines,
-        validator: (text) {
-          if (text!.isEmpty) {
-            return 'You should add text';
-          }
-          return null;
-        },
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
-            borderSide: const BorderSide(color: AppColor.borderColor),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
-            borderSide: const BorderSide(color: AppColor.primaryColor),
-          ),
-        ),
-      ),
-    ],
-  );
 }

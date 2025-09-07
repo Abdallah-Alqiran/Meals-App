@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_app/core/utils/app_color.dart';
 import 'package:meals_app/features/auth/splash_screen.dart';
 import 'package:meals_app/features/onboarding_services/onboarding_services.dart';
 import 'package:meals_app/routes/router_generator.dart';
@@ -24,6 +25,12 @@ class MyApp extends StatelessWidget {
           routerConfig: RouterGenerator.goRouter,
           title: "Meals App",
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xF9FFFFFF),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: AppColor.white,
+            )
+          ),
         );
       },
       child: const SplashScreen(),

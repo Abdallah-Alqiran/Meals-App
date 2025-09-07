@@ -88,6 +88,5 @@ class CustomFoodItemWidget extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

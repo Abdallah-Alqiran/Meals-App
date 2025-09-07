@@ -1,12 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:meals_app/core/utils/app_color.dart';
-import 'package:meals_app/core/utils/app_text_styles.dart';
 import 'package:meals_app/features/home/data/dp_helper/db_helper.dart';
 import 'package:meals_app/features/home/screens/home_screen/widgets/custom_food_item_widget.dart';
-import 'package:meals_app/routes/app_routes.dart';
 
 class CustomFoodWidget extends StatelessWidget {
   final DatabaseHelper dbHelper;
