@@ -19,47 +19,49 @@ class MealsDetailsScreen extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: CachedNetworkImage(
-                      width: MediaQuery.sizeOf(context).width,
-                      height: 327.h,
-                      imageUrl: mealModel.imageUrl,
-                      placeholder:
-                          (context, url) => const CircularProgressIndicator(),
-                      errorWidget:
-                          (context, url, error) =>
-                              const Icon(Icons.error, color: Colors.red),
-                      fit: BoxFit.fitWidth,
+              Padding(
+                padding: EdgeInsets.all(8.sp),
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12.r),
+                      child: CachedNetworkImage(
+                        width: double.infinity,
+                        height: 327.h,
+                        imageUrl: mealModel.imageUrl,
+                        placeholder:
+                            (context, url) => const CircularProgressIndicator(),
+                        errorWidget:
+                            (context, url, error) =>
+                                const Icon(Icons.error, color: Colors.red),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    left: 20.w,
-                    top: 60.h,
-                    height: 50.h,
-                    width: 50.w,
-                    child: IconButton(
-                      onPressed: () {
-                        GoRouter.of(context).pop();
-                      },
-                      icon: SvgPicture.asset(
-                        AppAssets.backImage,
-                        colorFilter: const ColorFilter.mode(
-                          AppColor.white,
-                          BlendMode.srcIn,
+                    Positioned(
+                      left: 20.w,
+                      top: 60.h,
+                      height: 50.h,
+                      width: 50.w,
+                      child: IconButton(
+                        onPressed: () {
+                          GoRouter.of(context).pop();
+                        },
+                        icon: SvgPicture.asset(
+                          AppAssets.backImage,
+                          colorFilter: const ColorFilter.mode(
+                            AppColor.white,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                padding: EdgeInsets.symmetric(horizontal: 24.sp),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
